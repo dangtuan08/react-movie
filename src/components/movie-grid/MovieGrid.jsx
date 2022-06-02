@@ -15,13 +15,15 @@ const MovieGrid = (props) => {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
 
+  // nếu có keyword, tức khi click tìm kiếm thì thay đổi địa chỉ ở ô địa chỉ trình duyệt có routes là path="/:category/search/:keyword"
   const { keyword } = useParams();
+  console.log(props.category);
 
   useEffect(() => {
     const getList = async () => {
       let response = null;
+
       if (keyword === undefined) {
-        console.log("keyword === undefined", props.category);
         const params = {};
         switch (props.category) {
           case category.movie:
@@ -33,7 +35,6 @@ const MovieGrid = (props) => {
             response = await tmdbApi.getTvList(tvType.popular, { params });
         }
       } else {
-        console.log("keyword !== undefined");
         const params = {
           query: keyword,
         };
